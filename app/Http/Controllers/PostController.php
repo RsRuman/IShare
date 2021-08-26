@@ -45,8 +45,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|min:10|max:100',
             'thumbnail' => 'required',
-            'excerpt' => 'required|min:20|max:200',
-            'body' => 'required|min:100|max:2000',
+            'excerpt' => 'required|min:100',
+            'body' => 'required|min:200',
             'category_id' => ['required', Rule::exists('categories', 'id')]
         ]);
 

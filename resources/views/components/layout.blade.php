@@ -21,6 +21,10 @@
             </div>
 
             <div class="mt-8 md:mt-0 flex items-center space-x-1.5">
+                <a href="#subscribe" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+                    Subscribe for Updates
+                </a>
+
                 @guest()
                     <a href="/register" class="text-xs font-bold uppercase text-blue-500">Register</a>
                     <p class="text-xs font-semibold">or</p>
@@ -28,12 +32,18 @@
                 @endguest
 
                     @auth()
-                        <h3 class="inline"><span class="text-green-500">Welcome, </span>{{ auth()->user()->user_name }}</h3>
-                        <span class="text-xs text-blue-500"><a href="/logout">Logout</a></span>
+                        <div class="relative lg:inline-flex rounded-xl">
+                            <div x-data="{show: false}">
+                                <div class="rounded-2xl px-3 py-2">
+                                    <span class="text-green-500">Welcome, </span><h3 @click="show = !show" @click.away="show = false" class="inline cursor-pointer hover:bg-blue-500 hover:text-white px-3 py-2 rounded-2xl">{{ auth()->user()->user_name }}</h3>
+                                </div>
+                                <div x-show="show" class="py-2 absolute bg-gray-100 mt-1.5 rounded-xl w-full z-50">
+                                    <span class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white"><a href="/admin/dashboard">Dashboard</a></span>
+                                    <span class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white"><a href="/logout">Logout</a></span>
+                                </div>
+                            </div>
+                        </div>
                     @endauth
-                <a href="#subscribe" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
-                    Subscribe for Updates
-                </a>
             </div>
         </nav>
 

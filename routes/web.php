@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
@@ -30,6 +31,4 @@ Route::get('/admin/posts/create', [PostController::class, 'create'])->middleware
 
 Route::post('/admin/posts', [PostController::class, 'store']);
 
-Route::get('/foo', function (){
-
-});
+Route::get('/admin/dashboard', [AdministratorController::class, 'index']);
