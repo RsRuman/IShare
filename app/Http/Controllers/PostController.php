@@ -29,37 +29,4 @@ class PostController extends Controller
         ]);
     }
 
-    //Admin section create post
-    public function create(){
-        return view('post.create', [
-            'categories' => Category::all()
-        ]);
-    }
-
-    //Store post to database
-    public function store(Request $request){
-
-//      $path = $request->file('thumbnail')->store('thumbnails');
-//      return 'done '.$path;
-
-        $request->validate([
-            'title' => 'required|min:10|max:100',
-            'thumbnail' => 'required',
-            'excerpt' => 'required|min:100',
-            'body' => 'required|min:200',
-            'category_id' => ['required', Rule::exists('categories', 'id')]
-        ]);
-
-        Post::create([
-            'user_id' => auth()->id(),
-            'category_id' => $request->category_id,
-            'title' => $request->title,
-            'thumbnails' => $request->file('thumbnail')->store('thumbnails'),
-            'slug' => STR::slug($request->title),
-            'excerpt' => $request->excerpt,
-            'body' => $request->body
-        ]);
-
-        return redirect('/')->with('success', 'Post created successfully!');
-    }
 }

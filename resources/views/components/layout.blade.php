@@ -38,7 +38,7 @@
                                     <span class="text-green-500">Welcome, </span><h3 @click="show = !show" @click.away="show = false" class="inline cursor-pointer hover:bg-blue-500 hover:text-white px-3 py-2 rounded-2xl">{{ auth()->user()->user_name }}</h3>
                                 </div>
                                 <div x-show="show" class="py-2 absolute bg-gray-100 mt-1.5 rounded-xl w-full z-50">
-                                    <span class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white"><a href="/admin/dashboard">Dashboard</a></span>
+                                    <span class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white {{ auth()->user()->user_name !== 'RsRuman' ? 'hidden' : '' }}"><a href="/admin/dashboard">Dashboard</a></span>
                                     <span class="block text-left px-3 text-sm leading-6 hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white"><a href="/logout">Logout</a></span>
                                 </div>
                             </div>

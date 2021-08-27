@@ -27,8 +27,14 @@ Route::post('/login', [SessionController::class, 'login']);
 
 Route::post('/comments/{post:slug}/comments', [CommentController::class, 'store']);
 
-Route::get('/admin/posts/create', [PostController::class, 'create'])->middleware('admin');
+Route::get('/admin/dashboard', [AdministratorController::class, 'index'])->middleware('admin');;
 
-Route::post('/admin/posts', [PostController::class, 'store']);
+Route::get('/admin/posts/create', [AdministratorController::class, 'create'])->middleware('admin');
+Route::post('/admin/posts', [AdministratorController::class, 'store'])->middleware('admin');;
 
-Route::get('/admin/dashboard', [AdministratorController::class, 'index']);
+Route::get('/admin/categories/create', [AdministratorController::class, 'createCategory'])->middleware('admin');
+Route::post('/admin/categories', [AdministratorController::class, 'storeCategory'])->middleware('admin');
+
+Route::get('/admin/user', [AdministratorController::class, 'user'])->middleware('admin');
+
+
