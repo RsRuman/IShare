@@ -14,26 +14,24 @@
             </div>
 
             <div class="md:inline-grid md:w-3/4">
-                <h1 class="text-center p-2 mb-2 font-bold bg-blue-500 text-white text-xl">Index</h1>
+                <h1 class="text-center p-2 mb-2 font-bold bg-blue-500 text-white text-xl">Category List</h1>
                 <div class="w-full">
 
                     <div class="bg-white overflow-auto">
                         <table class="min-w-full bg-white rounded">
                             <thead class="bg-blue-500 text-white">
                             <tr>
-                                <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Thumbnail</th>
-                                <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Title</th>
-                                <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Category</th>
+                                <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
+                                <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Slug</th>
                                 <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Action</th>
 
                             </tr>
                             </thead>
                             <tbody class="bg-white">
-                            @foreach($posts as $post)
+                            @foreach($categories as $category)
                                 <tr class="{{ $loop->iteration%2 !== 0 ? '' : 'bg-gray-100' }}">
-                                    <td class="w-1/3 text-left py-3 px-4"> <img src="{{ asset('storage/'.$post->thumbnails) }}" alt="Blog Post illustration" class="rounded-xl h-20 w-28"></td>
-                                    <td class="w-1/3 text-left py-3 px-4">{{ $post->title }}</td>
-                                    <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">{{ $post->category->name }}</a></td>
+                                    <td class="w-1/3 text-left py-3 px-4">{{ $category->name }}</td>
+                                    <td class="text-left py-3 px-4">{{ $category->slug }}</a></td>
                                     <td>
                                         <a class="bg-yellow-500 font-bold rounded text-white hover:bg-yellow-700 mg:px-2 md:py-2 sm:p-1">Edit</a>
                                         <a class="bg-red-500 font-bold rounded text-white hover:bg-red-700 md:px-2 md:py-2 sm:p-1" >Delete</a>

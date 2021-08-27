@@ -82,4 +82,20 @@ class AdministratorController extends Controller
             'users' => User::latest()->get()
         ]);
     }
+
+    //Admin section Category List
+    public function category(){
+        return view('admin.category', [
+            'categories' => Category::latest()->get()
+        ]);
+    }
+
+    //Admin section deleteUser
+    public function userDelete(Request $request){
+        $id = $request->id;
+        User::find($id)->delete();
+        return view('admin.user', [
+            'users' => User::latest()->get()
+        ])->with('success', 'User has been deleted successfully!');
+    }
 }

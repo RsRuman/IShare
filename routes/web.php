@@ -6,6 +6,7 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,5 +37,9 @@ Route::get('/admin/categories/create', [AdministratorController::class, 'createC
 Route::post('/admin/categories', [AdministratorController::class, 'storeCategory'])->middleware('admin');
 
 Route::get('/admin/user', [AdministratorController::class, 'user'])->middleware('admin');
+
+Route::get('/admin/category', [AdministratorController::class, 'category'])->middleware('admin');
+
+Route::post('/user/delete', [AdministratorController::class, 'userDelete']);
 
 
