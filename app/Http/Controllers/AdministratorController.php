@@ -16,7 +16,8 @@ class AdministratorController extends Controller
         $posts = Post::latest()->get();
 
         return view('admin.index',[
-            'posts' => $posts
+            'posts' => $posts,
+            'categories' => Category::latest()->get()
         ]);
     }
     //Admin section create post
@@ -73,7 +74,7 @@ class AdministratorController extends Controller
         ]);
 
 
-        return redirect('/admin/dashboard')->with('success', 'Category Created Successfully!');
+        return redirect('/admin/category')->with('success', 'Category Created Successfully!');
     }
 
     //Admin section user list
@@ -94,8 +95,40 @@ class AdministratorController extends Controller
     public function userDelete(Request $request){
         $id = $request->id;
         User::find($id)->delete();
-        return view('admin.user', [
-            'users' => User::latest()->get()
-        ])->with('success', 'User has been deleted successfully!');
+        return redirect('/admin/user')->with('success', 'User has been deleted successfully!');
     }
+
+    public function categoryDelete(Request $request){
+        $id = $request->id;
+        Category::find($id)->delete();
+
+        return redirect('/admin/category',)->with('success', 'Category deleted successfully!');
+    }
+
+    public function postDelete(Request $request){
+        Post::find($request->id)->delete();
+
+        return redirect('/admin/dashboard')->with('success', 'Post deleted successfully!');
+    }
+
+    public function postUpdate(Request $request){
+        $request->validate([
+            'title' =>'required|min:10|max:100',
+            'excerpt' => 'required|min:100',
+            'body' => 'required|min:200'
+        ]);
+
+
+
+        $post = Post::find($request->id);
+
+        $post->title =  $request->title;
+        $post->excerpt = $request->excerpt;
+        $post->body = $request->body;
+
+        $post->save();
+
+        return redirect('/admin/dashboard')->with('success', 'Post updated successfully!');
+    }
+
 }

@@ -26,7 +26,7 @@
             </header>
 
             <div class="text-sm mt-2">
-                <p>{{$post->excerpt}}</p>
+                <p>{{ Str::limit($post->excerpt, $limit = 385, $end = '...')  }}</p>
             </div>
 
             <footer class="flex justify-between items-center mt-8">

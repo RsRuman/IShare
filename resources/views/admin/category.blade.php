@@ -16,9 +16,11 @@
             <div class="md:inline-grid md:w-3/4">
                 <h1 class="text-center p-2 mb-2 font-bold bg-blue-500 text-white text-xl">Category List</h1>
                 <div class="w-full">
-
                     <div class="bg-white overflow-auto">
-                        <table class="min-w-full bg-white rounded">
+                        <div x-data="{show: false, open: true}" @click.away="show = false, open = true">
+                        <x-delete-modal :url="$url= 'category'"/>
+
+                        <table class="min-w-full bg-white rounded" x-bind:class="! open ? 'hidden' : ''">
                             <thead class="bg-blue-500 text-white">
                             <tr>
                                 <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
@@ -34,15 +36,24 @@
                                     <td class="text-left py-3 px-4">{{ $category->slug }}</a></td>
                                     <td>
                                         <a class="bg-yellow-500 font-bold rounded text-white hover:bg-yellow-700 mg:px-2 md:py-2 sm:p-1">Edit</a>
-                                        <a class="bg-red-500 font-bold rounded text-white hover:bg-red-700 md:px-2 md:py-2 sm:p-1" >Delete</a>
+                                        <button data-id="{{ $category->id }}" onclick="confirmDelete(this);" @click="show = !show, open = !open" class="bg-red-500 font-bold rounded text-white hover:bg-red-700 md:px-2 md:py-2 sm:p-1" >Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
+    <script>
+        function confirmDelete(self) {
+            var id = self.getAttribute("data-id");
+            console.log(id);
+            document.getElementById("form-delete-user").id.value = id;
+
+        }
+    </script>
 </x-layout>

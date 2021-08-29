@@ -41,5 +41,8 @@ Route::get('/admin/user', [AdministratorController::class, 'user'])->middleware(
 Route::get('/admin/category', [AdministratorController::class, 'category'])->middleware('admin');
 
 Route::post('/user/delete', [AdministratorController::class, 'userDelete']);
+Route::post('/category/delete', [ AdministratorController::class, 'categoryDelete']);
+Route::post('/post/delete', [ AdministratorController::class, 'postDelete']);
+Route::put('/post/update', [AdministratorController::class, 'postUpdate']);
 
 

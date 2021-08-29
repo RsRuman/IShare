@@ -18,7 +18,10 @@
                 <div class="w-full">
 
                     <div class="bg-white overflow-auto">
-                        <table class="min-w-full bg-white rounded">
+                        <div x-data="{show: false, open: true}" @click.away="show = false, open = true">
+                            <x-delete-modal :url="$url= 'post'"/>
+
+                            <table class="min-w-full bg-white rounded" x-bind:class="! open ? 'hidden' : ''">
                             <thead class="bg-blue-500 text-white">
                             <tr>
                                 <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Thumbnail</th>
@@ -35,16 +38,39 @@
                                     <td class="w-1/3 text-left py-3 px-4">{{ $post->title }}</td>
                                     <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">{{ $post->category->name }}</a></td>
                                     <td>
-                                        <a class="bg-yellow-500 font-bold rounded text-white hover:bg-yellow-700 mg:px-2 md:py-2 sm:p-1">Edit</a>
-                                        <a class="bg-red-500 font-bold rounded text-white hover:bg-red-700 md:px-2 md:py-2 sm:p-1" >Delete</a>
+                                        <button data-id="{{ $post->id }}" data-title="{{ $post->title }}" data-excerpt="{{ $post->excerpt }}" data-body="{{ $post->body }}" onclick="postUpdate(this);" class="bg-yellow-500 font-bold rounded text-white hover:bg-yellow-700 md:px-2 md:py-2 sm:p-1">Update</button>
+                                        <button data-id="{{ $post->id }}" onclick="confirmDelete(this);" @click="show = !show, open = !open" class="bg-red-500 font-bold rounded text-white hover:bg-red-700 md:px-2 md:py-2 sm:p-1" >Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <x-post-update-modal/>
     </main>
+    <script>
+        function confirmDelete(self) {
+            var id = self.getAttribute("data-id");
+            console.log(id);
+            document.getElementById("form-delete-user").id.value = id;
+        }
+
+        function postUpdate(self){
+            var id = self.getAttribute("data-id");
+            var title = self.getAttribute("data-title");
+            var excerpt = self.getAttribute("data-excerpt");
+            var body = self.getAttribute("data-body");
+
+            document.getElementById('myModal').showModal();
+
+            document.getElementById("id").value = id;
+            document.getElementById("title").value = title;
+            document.getElementById("excerpt").value = excerpt;
+            document.getElementById("body").value = body;
+        }
+    </script>
 </x-layout>
